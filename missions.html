@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🕵️ Agent Owen — Mission Log</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --card2: #1c2129;
+    --gold: #f0c040;
+    --gold-dim: #a07c1a;
+    --green: #2ea043;
+    --green-dim: #1a4a28;
+    --text: #e6edf3;
+    --muted: #7d8590;
+    --border: #30363d;
+    --red: #f85149;
+    --paris: #3b6fd4;
+    --paris-dim: #1c3a7a;
+    --alps: #2ea043;
+    --alps-dim: #1a4a28;
+    --zurich: #9e6fd8;
+    --zurich-dim: #4a2a7a;
+    --transfer: #d4883b;
+    --transfer-dim: #7a4a1a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .hero {
+    text-align: center;
+    padding: 24px 16px 20px;
+    border: 1px solid var(--gold-dim);
+    border-radius: 12px;
+    background: linear-gradient(160deg, #1a1500 0%, #0d1117 100%);
+    margin-bottom: 20px;
+  }
+  .hero .codename { color: var(--gold); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px; }
+  .hero h1 { font-size: 22px; font-weight: 800; color: var(--gold); line-height: 1.2; margin-bottom: 4px; }
+  .hero .dates { color: var(--muted); font-size: 13px; }
+
+  /* PROGRESS BAR */
+  .progress-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .progress-label span:last-child { color: var(--gold); font-weight: 700; }
+  .bar-bg { background: var(--border); border-radius: 4px; height: 8px; overflow: hidden; }
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .rank {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold);
+    min-height: 20px;
+  }
+
+  /* BRIEFING */
+  .briefing {
+    background: #0d1f0d;
+    border: 1px solid var(--green);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #9ee09e;
+    font-family: 'Courier New', monospace;
+    line-height: 1.7;
+  }
+  .briefing strong { color: var(--gold); display: block; margin-bottom: 6px; font-size: 13px; letter-spacing: 1px; }
+
+  /* DAY SECTION */
+  .day-section { margin-bottom: 16px; }
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid transparent;
+  }
+  .day-header.paris    { background: var(--paris-dim);    border-color: var(--paris);    }
+  .day-header.alps     { background: var(--alps-dim);     border-color: var(--alps);     }
+  .day-header.zurich   { background: var(--zurich-dim);   border-color: var(--zurich);   }
+  .day-header.transfer { background: var(--transfer-dim); border-color: var(--transfer); }
+  .day-header.finish   { background: #3d1a00;             border-color: var(--gold);     }
+
+  .day-num {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    background: rgba(0,0,0,0.3);
+    padding: 2px 7px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .day-title { font-weight: 700; font-size: 14px; flex: 1; }
+  .day-count { font-size: 12px; opacity: 0.75; white-space: nowrap; }
+  .chevron { font-size: 12px; opacity: 0.6; transition: transform 0.2s; }
+  .day-header.collapsed .chevron { transform: rotate(-90deg); }
+
+  /* MISSIONS LIST */
+  .missions {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+  }
+  .missions.hidden { display: none; }
+
+  .mission-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .mission-item:last-child { border-bottom: none; }
+  .mission-item:hover { background: var(--card2); }
+  .mission-item.done { opacity: 0.5; }
+  .mission-item.done .mission-text { text-decoration: line-through; }
+  .mission-item.bonus { background: #1a1500; }
+  .mission-item.bonus:hover { background: #201a00; }
+  .mission-item.bonus .mission-text { color: var(--gold); }
+
+  .checkbox {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    margin-top: 1px;
+    transition: all 0.15s;
+    background: var(--bg);
+  }
+  .mission-item.done .checkbox {
+    background: var(--green);
+    border-color: var(--green);
+    color: white;
+  }
+  .mission-item.bonus .checkbox { border-color: var(--gold-dim); }
+  .mission-item.bonus.done .checkbox { background: var(--gold); border-color: var(--gold); color: #000; }
+
+  .mission-text { font-size: 14px; line-height: 1.45; padding-top: 1px; }
+  .mission-fill {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    border-bottom: 1px solid var(--muted);
+    min-width: 60px;
+    height: 16px;
+    border-radius: 2px;
+    vertical-align: bottom;
+    margin: 0 2px;
+  }
+
+  /* SCORING */
+  .scoring {
+    background: var(--card);
+    border: 1px solid var(--gold-dim);
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 20px;
+    margin-bottom: 32px;
+  }
+  .scoring h3 { color: var(--gold); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .score-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .score-row:last-child { border-bottom: none; }
+  .score-row span:first-child { color: var(--muted); }
+
+  /* RESET */
+  .reset-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 32px;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { border-color: var(--red); color: var(--red); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="codename">🕵️ Top Secret · Eyes Only</div>
+  <h1>AGENT OWEN<br>MISSION LOG</h1>
+  <div class="dates">Paris &amp; Swiss Alps · June 18–27, 2026</div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span>MISSIONS COMPLETED</span>
+    <span id="score-display">0 / 50</span>
+  </div>
+  <div class="bar-bg"><div class="bar-fill" id="bar"></div></div>
+  <div class="rank" id="rank-display"></div>
+</div>
+
+<div class="briefing">
+  <strong>📡 PARENT MORNING BRIEFING — SEND EACH DAY</strong>
+SECRET TRANSMISSION — AGENT OWEN GILKISON<br><br>
+Bonjour / Grüezi, Agent!<br><br>
+Mission Control has identified today's objectives. Your assignment: complete at least 4 of 5 missions. Failure is not an option (mostly).<br><br>
+⭐ BONUS OBJECTIVE: Spot something cooler than Mom or Dad notices first.<br><br>
+Success earns the right to pick tonight's dessert.<br><br>
+<em>Bonne chance, Agent. The fate of the croissant is in your hands.</em>
+</div>
+
+<div id="missions-container"></div>
+
+<div class="scoring">
+  <h3>🏅 Agent Rankings</h3>
+  <div class="score-row"><span>40–50 missions</span><span>🥇 Elite Agent — legendary trip</span></div>
+  <div class="score-row"><span>30–39 missions</span><span>🥈 Field Agent — outstanding work</span></div>
+  <div class="score-row"><span>20–29 missions</span><span>🥉 Junior Agent — solid effort</span></div>
+  <div class="score-row"><span>Under 20</span><span>🕵️ Trainee — come back to Paris</span></div>
+</div>
+
+<button class="reset-btn" onclick="resetAll()">↺ Reset all missions</button>
+
+<script>
+const days = [
+  {
+    label: "DAY 1", theme: "paris",
+    title: "Thu · Jun 18 · ARRIVAL",
+    missions: [
+      "Survive the flight without losing your mind",
+      "Count how many countries' flags you spot at CDG airport — write it: ___",
+      "Spot the Eiffel Tower from the RER train window on the way into the city",
+      "Find the Luxembourg Gardens and sail a toy boat on the pond",
+      "⭐ BONUS: Watch the Eiffel Tower sparkle at night — it lasts exactly 5 minutes. Time it!",
+    ]
+  },
+  {
+    label: "DAY 2", theme: "paris",
+    title: "Fri · Jun 19 · LOUVRE & CATACOMBS",
+    missions: [
+      "Find the Mona Lisa — how many people are crowded around it? ___",
+      "Find the Venus de Milo. She's missing both arms. Ask a guard what happened to them.",
+      "Spot the glass pyramid from inside the Louvre",
+      "In the Galerie de l'Évolution — find the giant squid. It's the only preserved one in the world.",
+      "CLASSIFIED: Count steps going DOWN into the Catacombs: ___ and back UP: ___",
+      "⭐ BONUS: Find a skull that looks like it's smiling",
+    ]
+  },
+  {
+    label: "DAY 3", theme: "paris",
+    title: "Sat · Jun 20 · DISNEYLAND PARIS",
+    missions: [
+      "Ride something that makes you scream",
+      "Find Mickey Mouse — the real one, not on a sign",
+      "Try a churro or a Mickey waffle",
+      "Be the first in your group to spot the castle when you walk through the gates",
+      "Count how many floats go past in the Stars on Parade: ___",
+      "⭐ BONUS: Stay awake for the full Illuminations show without falling asleep",
+    ]
+  },
+  {
+    label: "DAY 4", theme: "paris",
+    title: "Sun · Jun 21 · EIFFEL TOWER & SEINE",
+    missions: [
+      "Look straight down through the glass floor at the Eiffel Tower — no chickening out",
+      "Eat brunch at Madame Brasserie — you're 57 metres above Paris",
+      "Count how many bridges the Seine cruise passes under: ___",
+      "Count the stained glass windows inside Sainte-Chapelle: ___",
+      "Rate your Berthillon ice cream on Île Saint-Louis 1–10: ___",
+      "⭐ BONUS: Take a better Eiffel Tower photo than Mom or Dad",
+    ]
+  },
+  {
+    label: "DAY 5", theme: "transfer",
+    title: "Mon · Jun 22 · TRAIN TO SWITZERLAND",
+    missions: [
+      "Count how many tunnels the train goes through: ___",
+      "Spot the exact moment you cross the border into Switzerland",
+      "Be the first to shout MOUNTAINS when the Alps appear out the window",
+      "Rate Swiss chocolate vs French chocolate: ___",
+      "⭐ BONUS: Figure out what language people speak in each city you stop at (hint: it changes)",
+    ]
+  },
+  {
+    label: "DAY 6", theme: "alps",
+    title: "Tue · Jun 23 · JUNGFRAUJOCH",
+    missions: [
+      "You're at 3,454m — the highest railway station in Europe. Write that down.",
+      "Step outside at the summit. Write the temperature: ___°C",
+      "Touch real glacier ice inside the Ice Palace",
+      "Find the highest post office in Europe — hint: you're standing in it",
+      "Do one snow activity: sledding, snowball fight, your choice",
+      "⭐ BONUS: Spot the Aletsch Glacier from the Sphinx Observatory — it's 23km long",
+    ]
+  },
+  {
+    label: "DAY 7", theme: "alps",
+    title: "Wed · Jun 24 · GRINDELWALD FIRST",
+    missions: [
+      "Walk the First Cliff Walk — look straight down. Both feet must stay on the walkway.",
+      "Hike to Bachalpsee lake and find your reflection in the water",
+      "Spot a marmot near the lake. Describe what it looks like: ___",
+      "Ride the First Flyer zip line — estimate how fast you went: ___ km/h",
+      "Time yourself on the Pfingstegg toboggan run: ___ seconds",
+      "⭐ BONUS: Name all three peaks you can see from First — ask Dad to help",
+    ]
+  },
+  {
+    label: "DAY 8", theme: "alps",
+    title: "Thu · Jun 25 · FLY FISHING WITH PASCAL",
+    missions: [
+      "Learn to cast a fly fishing line",
+      "Catch a fish — or get your line in the water at least 20 times trying",
+      "Walk behind Trümmelbach Falls — you're inside a mountain",
+      "Count the waterfalls visible in the Lauterbrunnen Valley: ___",
+      "⭐ BONUS: Ask Pascal what the biggest fish he's ever caught was",
+    ]
+  },
+  {
+    label: "DAY 9", theme: "zurich",
+    title: "Fri · Jun 26 · ZURICH",
+    missions: [
+      "Find a suit of knight's armor at the Swiss National Museum",
+      "Walk across the Quaibrücke — lake on one side, river on the other",
+      "Try a Luxemburgerli macaron from Sprüngli — better or worse than French macarons? ___",
+      "Eat dinner at Zeughauskeller — it's in a 600-year-old building",
+      "⭐ BONUS: Find out what Zeughauskeller means in English",
+    ]
+  },
+  {
+    label: "DAY 10", theme: "finish",
+    title: "Sat · Jun 27 · GOING HOME",
+    missions: [
+      "Write your #1 favourite moment of the whole trip: ___",
+      "Write the weirdest thing you ate: ___",
+      "Write the scariest thing you did: ___",
+      "Count your total missions completed: ___ / 50",
+      "⭐ FINAL MISSION: Make everyone on the plane jealous of your trip",
+    ]
+  },
+];
+
+// Load saved state
+let state = JSON.parse(localStorage.getItem('owenMissions') || '{}');
+
+function saveState() {
+  localStorage.setItem('owenMissions', JSON.stringify(state));
+}
+
+function getKey(dayIdx, mIdx) { return `d${dayIdx}_m${mIdx}`; }
+
+function updateProgress() {
+  let total = 0, done = 0;
+  days.forEach((d, di) => {
+    d.missions.forEach((m, mi) => {
+      total++;
+      if (state[getKey(di, mi)]) done++;
+    });
+  });
+  const pct = total ? (done / total * 100) : 0;
+  document.getElementById('bar').style.width = pct + '%';
+  document.getElementById('score-display').textContent = `${done} / ${total}`;
+  const ranks = [
+    [40, '🥇 Elite Agent — legendary trip'],
+    [30, '🥈 Field Agent — outstanding work'],
+    [20, '🥉 Junior Agent — solid effort'],
+    [0,  '🕵️ Trainee — come back to Paris'],
+  ];
+  const r = ranks.find(([min]) => done >= min);
+  document.getElementById('rank-display').textContent = done > 0 ? r[1] : '';
+
+  // Update day counts
+  days.forEach((d, di) => {
+    const doneCount = d.missions.filter((_, mi) => state[getKey(di, mi)]).length;
+    const el = document.getElementById(`count-${di}`);
+    if (el) el.textContent = `${doneCount}/${d.missions.length}`;
+  });
+}
+
+function toggleMission(dayIdx, mIdx) {
+  const key = getKey(dayIdx, mIdx);
+  state[key] = !state[key];
+  saveState();
+  const item = document.getElementById(`item-${dayIdx}-${mIdx}`);
+  item.classList.toggle('done', state[key]);
+  const cb = item.querySelector('.checkbox');
+  cb.textContent = state[key] ? '✓' : '';
+  updateProgress();
+}
+
+function toggleDay(di) {
+  const missions = document.getElementById(`missions-${di}`);
+  const header = document.getElementById(`header-${di}`);
+  const collapsed = missions.classList.toggle('hidden');
+  header.classList.toggle('collapsed', collapsed);
+}
+
+function resetAll() {
+  if (!confirm('Reset all missions? This cannot be undone.')) return;
+  state = {};
+  saveState();
+  document.querySelectorAll('.mission-item').forEach(el => {
+    el.classList.remove('done');
+    el.querySelector('.checkbox').textContent = '';
+  });
+  updateProgress();
+}
+
+// Build DOM
+const container = document.getElementById('missions-container');
+days.forEach((day, di) => {
+  const section = document.createElement('div');
+  section.className = 'day-section';
+
+  const header = document.createElement('div');
+  header.className = `day-header ${day.theme}`;
+  header.id = `header-${di}`;
+  header.innerHTML = `
+    <span class="day-num">${day.label}</span>
+    <span class="day-title">${day.title}</span>
+    <span class="day-count" id="count-${di}">0/${day.missions.length}</span>
+    <span class="chevron">▼</span>
+  `;
+  header.onclick = () => toggleDay(di);
+
+  const mList = document.createElement('div');
+  mList.className = 'missions';
+  mList.id = `missions-${di}`;
+
+  day.missions.forEach((m, mi) => {
+    const isBonus = m.startsWith('⭐');
+    const isDone = !!state[getKey(di, mi)];
+    const item = document.createElement('div');
+    item.className = `mission-item${isBonus ? ' bonus' : ''}${isDone ? ' done' : ''}`;
+    item.id = `item-${di}-${mi}`;
+    item.innerHTML = `
+      <div class="checkbox">${isDone ? '✓' : ''}</div>
+      <div class="mission-text">${m}</div>
+    `;
+    item.onclick = () => toggleMission(di, mi);
+    mList.appendChild(item);
+  });
+
+  section.appendChild(header);
+  section.appendChild(mList);
+  container.appendChild(section);
+});
+
+updateProgress();
+</script>
+</body>
+</html>
