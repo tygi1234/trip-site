@@ -1,0 +1,577 @@
+<title>9U Flag Playbook</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+  :root{
+    --field-900:#0f3b2c;
+    --field-700:#155c41;
+    --field-600:#1d7350;
+    --chalk-50:#f9f6ee;
+    --chalk-100:#f1ecdf;
+    --ink-900:#152420;
+    --ink-600:#4a5a54;
+    --flag-500:#f2a900;
+    --flag-700:#b97a04;
+    --line-200:#ddd6c4;
+    --card-bg:#ffffff;
+    --danger-500:#c0392b;
+    --shadow: 0 1px 2px rgba(15,59,44,.06), 0 6px 16px rgba(15,59,44,.07);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --field-900:#eef7f1;
+      --field-700:#8fd6b0;
+      --field-600:#6cc394;
+      --chalk-50:#0d1a15;
+      --chalk-100:#12211b;
+      --ink-900:#eef2ef;
+      --ink-600:#a9bab2;
+      --flag-500:#f2b332;
+      --flag-700:#f7c65c;
+      --line-200:#243b32;
+      --card-bg:#122019;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --field-900:#eef7f1;
+    --field-700:#8fd6b0;
+    --field-600:#6cc394;
+    --chalk-50:#0d1a15;
+    --chalk-100:#12211b;
+    --ink-900:#eef2ef;
+    --ink-600:#a9bab2;
+    --flag-500:#f2b332;
+    --flag-700:#f7c65c;
+    --line-200:#243b32;
+    --card-bg:#122019;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 20px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--chalk-50);
+    color:var(--ink-900);
+    font-family:'Inter',system-ui,sans-serif;
+    padding-inline:16px;
+    padding-block:0 32px;
+  }
+  .wrap{max-width:820px;margin:0 auto;}
+  .mono{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;}
+
+  header.top{
+    padding-block:22px 14px;
+    border-bottom:2px solid var(--line-200);
+    margin-bottom:18px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.72rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--field-600);
+    font-weight:600;
+    margin:0 0 6px;
+  }
+  h1.title{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    font-size:clamp(2rem,7vw,2.9rem);
+    line-height:.95;
+    letter-spacing:.01em;
+    margin:0 0 8px;
+    color:var(--field-900);
+    text-wrap:balance;
+  }
+  .sub{color:var(--ink-600);font-size:.95rem;max-width:60ch;margin:0;}
+
+  nav.tabs{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding-block:10px;
+    margin-bottom:22px;
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    background:var(--chalk-50);
+    z-index:5;
+    border-bottom:1px solid var(--line-200);
+    scrollbar-width:none;
+  }
+  nav.tabs::-webkit-scrollbar{display:none;}
+  nav.tabs button{
+    flex:0 0 auto;
+    font-family:'Anton',sans-serif;
+    font-size:.9rem;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    background:transparent;
+    border:1px solid var(--line-200);
+    color:var(--ink-600);
+    padding:8px 14px;
+    border-radius:999px;
+    cursor:pointer;
+  }
+  nav.tabs button.active{
+    background:var(--field-700);
+    border-color:var(--field-700);
+    color:var(--chalk-50);
+  }
+
+  section.panel{display:none;}
+  section.panel.active{display:block;animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+  h2.h{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    font-size:1.5rem;
+    letter-spacing:.01em;
+    color:var(--field-900);
+    margin:28px 0 4px;
+  }
+  h2.h:first-child{margin-top:0;}
+  p.lede{color:var(--ink-600);margin:0 0 18px;max-width:65ch;}
+
+  .card{
+    background:var(--card-bg);
+    border:1px solid var(--line-200);
+    border-radius:14px;
+    padding:16px 18px;
+    box-shadow:var(--shadow);
+    margin-bottom:14px;
+  }
+  .callout{
+    background:var(--card-bg);
+    border-left:4px solid var(--flag-500);
+    border-radius:8px;
+    padding:14px 16px;
+    box-shadow:var(--shadow);
+    margin:14px 0 22px;
+    color:var(--ink-900);
+    font-size:.92rem;
+  }
+  .callout strong{color:var(--field-900);}
+
+  .goal-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:10px;
+    margin:14px 0 24px;
+  }
+  .goal-grid .card{margin:0;padding:12px 14px;}
+  .goal-grid .num{
+    font-family:'Anton',sans-serif;
+    color:var(--flag-700);
+    font-size:1.1rem;
+  }
+  .goal-grid .label{font-size:.85rem;color:var(--ink-600);}
+
+  .timeline{border-top:1px solid var(--line-200);}
+  .tblock{
+    display:grid;
+    grid-template-columns:88px 1fr;
+    gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid var(--line-200);
+  }
+  .tblock .time{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.8rem;
+    color:var(--field-600);
+    font-weight:600;
+    padding-top:2px;
+  }
+  .tblock .dur{
+    display:inline-block;
+    margin-top:6px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.72rem;
+    background:var(--chalk-100);
+    color:var(--ink-600);
+    padding:2px 7px;
+    border-radius:6px;
+  }
+  .tblock h3{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    font-size:1rem;
+    margin:0 0 4px;
+    color:var(--ink-900);
+  }
+  .tblock p{margin:0;color:var(--ink-600);font-size:.9rem;line-height:1.5;}
+  .total{
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding-top:12px;font-family:'IBM Plex Mono',monospace;font-size:.85rem;color:var(--ink-600);
+  }
+
+  table.assess{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:8px;}
+  table.assess th{
+    font-family:'IBM Plex Mono',monospace;
+    text-transform:uppercase;letter-spacing:.04em;font-size:.68rem;
+    color:var(--ink-600);text-align:left;padding:8px 6px;border-bottom:2px solid var(--line-200);
+  }
+  table.assess td{padding:10px 6px;border-bottom:1px solid var(--line-200);color:var(--ink-600);}
+  table.assess td.name{color:var(--ink-900);font-weight:600;min-width:110px;}
+  table.assess td.blank{min-width:44px;}
+
+  .plays-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:10px;}
+  .play-card{background:var(--card-bg);border:1px solid var(--line-200);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;}
+  .play-card svg{display:block;width:100%;height:auto;background:var(--field-700);}
+  .play-card .pc-body{padding:14px 16px;}
+  .play-card h3{
+    font-family:'Anton',sans-serif;font-weight:400;font-size:1.1rem;
+    color:var(--field-900);margin:0 0 4px;letter-spacing:.01em;
+  }
+  .play-tag{
+    display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.68rem;
+    text-transform:uppercase;letter-spacing:.04em;color:var(--flag-700);margin-bottom:6px;
+  }
+  .play-card p{margin:0;font-size:.87rem;color:var(--ink-600);line-height:1.5;}
+  .coach-pt{margin-top:8px;font-size:.82rem;color:var(--ink-900);}
+  .coach-pt b{color:var(--field-600);}
+
+  ul.plain{margin:8px 0 0;padding-left:20px;color:var(--ink-600);font-size:.92rem;line-height:1.6;}
+  ul.plain li strong{color:var(--ink-900);}
+
+  .printbtn{
+    font-family:'IBM Plex Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;
+    background:var(--field-700);color:var(--chalk-50);border:none;border-radius:8px;
+    padding:9px 14px;cursor:pointer;margin:6px 0 18px;
+  }
+
+  @media print{
+    nav.tabs{display:none;}
+    section.panel{display:block !important;page-break-after:always;}
+    .printbtn{display:none;}
+    body{background:#fff;color:#000;}
+  }
+  @media (max-width:480px){
+    .tblock{grid-template-columns:64px 1fr;}
+  }
+</style>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#f2a900"/>
+    </marker>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">Coach Tyler · 9-Year-Old Flag Football</p>
+    <h1 class="title">9U Flag Playbook</h1>
+    <p class="sub">Three practices before Game 1 — built for fun first, fundamentals second, plays third. Print any tab or work off your phone at the field.</p>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="overview">Overview</button>
+    <button class="tab-btn" data-tab="template">Weekly Template</button>
+    <button class="tab-btn" data-tab="p1">Practice 1</button>
+    <button class="tab-btn" data-tab="p2">Practice 2</button>
+    <button class="tab-btn" data-tab="p3">Practice 3</button>
+    <button class="tab-btn" data-tab="plays">Playbook</button>
+  </nav>
+
+  <!-- OVERVIEW -->
+  <section class="panel active" id="overview">
+    <h2 class="h">How this is built</h2>
+    <p class="lede">Everything below assumes standard 9U rec-league flag rules. Check your league's actual rule sheet — if anything's different, tell me and I'll rebuild the timing.</p>
+
+    <div class="callout">
+      <strong>Assumptions baked in:</strong> 5-on-5 (1 center/snapper, 1 QB, 3 eligible receivers), no blocking or contact, one-hand or flag-belt pull instead of a tackle, a 4–5 second rush count before a rusher can cross the line, all offensive players are eligible to catch a pass, and a 60–70 minute practice window. Swap in your real numbers any time — the drills scale fine to 6–7 players a side.
+    </div>
+
+    <h2 class="h">The season goal</h2>
+    <div class="goal-grid">
+      <div class="card"><div class="num">01</div><div class="label">Kids have fun and want to come back</div></div>
+      <div class="card"><div class="num">02</div><div class="label">Everyone can catch, throw, and pull a flag safely</div></div>
+      <div class="card"><div class="num">03</div><div class="label">Team knows 4–5 plays cold by Game 1</div></div>
+      <div class="card"><div class="num">04</div><div class="label">Equal reps and playtime for every kid</div></div>
+    </div>
+
+    <h2 class="h">Coaching reminders</h2>
+    <ul class="plain">
+      <li><strong>Praise effort, not just results.</strong> At this age, attention span and confidence matter more than execution.</li>
+      <li><strong>Water every 10–12 minutes,</strong> more if it's hot. Don't wait for kids to ask.</li>
+      <li><strong>Keep instructions to one idea at a time.</strong> "Catch it with two hands" beats a four-part technique lecture.</li>
+      <li><strong>Every drill should have a line of 3 or fewer.</strong> Standing in line is where 9-year-olds lose interest — run stations, not one line for the whole team.</li>
+      <li><strong>End on something fun,</strong> win or lose the scrimmage — a relay, a trick play, a team cheer.</li>
+    </ul>
+  </section>
+
+  <!-- TEMPLATE -->
+  <section class="panel" id="template">
+    <h2 class="h">Default 65-minute practice structure</h2>
+    <p class="lede">Use this shell for every practice after the first one — just swap what's being taught in the "install" and "scrimmage" blocks. Trim proportionally if your field time runs short.</p>
+
+    <div class="timeline">
+      <div class="tblock">
+        <div class="time">0:00</div>
+        <div><h3>Arrival warm-up game</h3><span class="dur">8 min</span><p>A tag-based game that sneaks in conditioning — see "Flag Tag" in Practice 1. Start every practice this way; it's the hook that gets kids running before they realize it's a warm-up.</p></div>
+      </div>
+      <div class="tblock">
+        <div class="time">0:08</div>
+        <div><h3>Dynamic stretch &amp; agility</h3><span class="dur">7 min</span><p>High knees, butt kicks, lateral shuffles, backpedal, two lines through an agility ladder or cone gate if you have one. Keep it moving — no static stretching at this age.</p></div>
+      </div>
+      <div class="tblock">
+        <div class="time">0:15</div>
+        <div><h3>Skill stations (rotate in 3 small groups)</h3><span class="dur">18 min</span><p>Split the team into 3 groups of 2–3 kids, 6 minutes per station: (A) throwing &amp; catching, (B) flag pulling &amp; footwork, (C) ball security / handoffs. Small groups = more touches per kid.</p></div>
+      </div>
+      <div class="tblock">
+        <div class="time">0:33</div>
+        <div><h3>Team install — offense &amp; defense</h3><span class="dur">15 min</span><p>Walk through that week's play(s) at half speed with no defense, then add light "dummy" defense once they've got it. This is where the Playbook tab comes in.</p></div>
+      </div>
+      <div class="tblock">
+        <div class="time">0:48</div>
+        <div><h3>Scrimmage / situational reps</h3><span class="dur">14 min</span><p>Split into two mini-teams and play live. Stop and reset if something needs fixing — don't let bad habits run for a full possession.</p></div>
+      </div>
+      <div class="tblock">
+        <div class="time">1:02</div>
+        <div><h3>Water, cheer, recap</h3><span class="dur">3 min</span><p>One thing they did well as a team, one thing to work on, team cheer, dismiss.</p></div>
+      </div>
+    </div>
+    <div class="total"><span>Total</span><span class="mono">≈ 65 minutes</span></div>
+  </section>
+
+  <!-- PRACTICE 1 -->
+  <section class="panel" id="p1">
+    <span class="play-tag">Special — First Practice</span>
+    <h2 class="h" style="margin-top:4px">Practice 1: Meet, Move, and Measure</h2>
+    <p class="lede">Goals: learn names, make it fun immediately, teach the two rules that matter most (how the flag pull works, one-hand touch), and quietly assess where each kid is skill-wise. No real plays yet — just enough structure to end on a confidence win.</p>
+
+    <div class="timeline">
+      <div class="tblock">
+        <div class="time">0:00</div>
+        <div><h3>Welcome circle</h3><span class="dur">5 min</span><p>Names, "what position do you want to try," and the two rules: pull the flag / one-hand touch instead of tackling, and no blocking or grabbing jerseys. Keep it upbeat — this is a sales pitch for why flag football is awesome.</p></div>
+      </div>
+      <div class="tblock">
+        <div class="time">0:05</div>
+        <div><h3>Flag Tag (warm-up game)</h3><span class="dur">8 min</span><p>Everyone wears a flag belt inside a marked square. On "go," everyone tries to pull others' flags while keeping their own. Last flag standing wins a round. Teaches flag-pulling instinct and open-field movement without ever calling it a drill.</p></div>
+      </div>
+      <div class="tblock">
+        <div class="time">0:13</div>
+        <div><h3>Dynamic stretch &amp; agility</h3><span class="dur">5 min</span><p>High knees, butt kicks, side shuffle, two short sprints.</p></div>
+      </div>
+      <div class="tblock">
+        <div class="time">0:18</div>
+        <div><h3>Skill assessment stations</h3><span class="dur">25 min</span><p>3 groups, ~8 min each, rotate: <strong>(A) Throw &amp; Catch</strong> — soft toss at 5–8 yards, watch grip and hands; <strong>(B) Sprint &amp; Flag Pull</strong> — 15-yard chase drill, watch angle and closing speed; <strong>(C) Handoff &amp; Ball Security</strong> — walk-through handoffs, watch if they carry with two hands. Jot quick notes on the checklist below as you go — you don't need to say anything to the kids about it.</p></div>
+      </div>
+      <div class="tblock">
+        <div class="time">0:43</div>
+        <div><h3>Learn to line up + first play</h3><span class="dur">10 min</span><p>Teach the base formation (see Playbook tab) and walk through <strong>Slant Right</strong> five or six times, rotating who plays QB. Goal is just "everyone knows where to stand," not execution.</p></div>
+      </div>
+      <div class="tblock">
+        <div class="time">0:53</div>
+        <div><h3>Flag-pull relay (fun finisher)</h3><span class="dur">10 min</span><p>Two lines race one at a time to pull a flag off a coach or cone-dummy and sprint back. Loud, silly, competitive — send them home excited.</p></div>
+      </div>
+      <div class="tblock">
+        <div class="time">1:03</div>
+        <div><h3>Team cheer &amp; wrap-up</h3><span class="dur">2 min</span><p>One shared cheer, remind them about next practice, high-fives on the way out.</p></div>
+      </div>
+    </div>
+    <div class="total"><span>Total</span><span class="mono">≈ 65 minutes</span></div>
+
+    <h2 class="h">Quick skills checklist</h2>
+    <p class="lede">Rate 1 (needs work) to 3 (strong) during the stations above. Takes 10 seconds per kid — this tells you who to pair together and who needs extra reps, not who's "good" or "bad."</p>
+    <div class="card" style="overflow-x:auto">
+      <table class="assess">
+        <thead>
+          <tr><th>Player</th><th>Throw</th><th>Catch</th><th>Speed</th><th>Flag Pull</th><th>Focus</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="name">&nbsp;</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td></td></tr>
+          <tr><td class="name">&nbsp;</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td></td></tr>
+          <tr><td class="name">&nbsp;</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td></td></tr>
+          <tr><td class="name">&nbsp;</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td></td></tr>
+          <tr><td class="name">&nbsp;</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td></td></tr>
+          <tr><td class="name">&nbsp;</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td></td></tr>
+          <tr><td class="name">&nbsp;</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td></td></tr>
+          <tr><td class="name">&nbsp;</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <button class="printbtn" onclick="window.print()">Print this tab</button>
+  </section>
+
+  <!-- PRACTICE 2 -->
+  <section class="panel" id="p2">
+    <span class="play-tag">Practice 2</span>
+    <h2 class="h" style="margin-top:4px">Practice 2: Build the Playbook</h2>
+    <p class="lede">Goals: sharpen the fundamentals from Practice 1, install two more plays, and introduce the idea of defense for the first time.</p>
+    <div class="timeline">
+      <div class="tblock"><div class="time">0:00</div><div><h3>Flag Tag warm-up</h3><span class="dur">8 min</span><p>Same game as Practice 1 — repetition builds the habit. Add a rule: no running outside the square, to sharpen change-of-direction.</p></div></div>
+      <div class="tblock"><div class="time">0:08</div><div><h3>Dynamic stretch &amp; agility</h3><span class="dur">7 min</span><p>Add a simple cone weave to last week's warm-up.</p></div></div>
+      <div class="tblock"><div class="time">0:15</div><div><h3>Skill stations</h3><span class="dur">15 min</span><p>3 groups: <strong>(A) Catching in stride</strong> — thrown slightly ahead so they run through it; <strong>(B) Flag-pull angles</strong> — approaching from the side, not head-on; <strong>(C) Snap-and-go</strong> — center-to-QB exchange.</p></div></div>
+      <div class="tblock"><div class="time">0:30</div><div><h3>Install: Sweep Right &amp; Middle Screen</h3><span class="dur">15 min</span><p>Walk through both new plays at half speed (see Playbook tab), then review <strong>Slant Right</strong> from last week so all three are fresh.</p></div></div>
+      <div class="tblock"><div class="time">0:45</div><div><h3>Intro to defense</h3><span class="dur">10 min</span><p>Teach <strong>Man Coverage</strong>: each defender lines up across from one eligible receiver. One player rushes the QB after counting to 5 out loud ("Mississippi" counts work great and self-police the rush count).</p></div></div>
+      <div class="tblock"><div class="time">0:55</div><div><h3>Live scrimmage</h3><span class="dur">15 min</span><p>Split into two mini-squads, offense vs. defense, rotate who's on offense every 3–4 plays so everyone gets both sides.</p></div></div>
+      <div class="tblock"><div class="time">1:10</div><div><h3>Water, cheer, recap</h3><span class="dur">3 min</span><p>Highlight one good rep from the scrimmage by name.</p></div></div>
+    </div>
+    <div class="total"><span>Total</span><span class="mono">≈ 73 minutes</span></div>
+  </section>
+
+  <!-- PRACTICE 3 -->
+  <section class="panel" id="p3">
+    <span class="play-tag">Practice 3 — Pre-Game</span>
+    <h2 class="h" style="margin-top:4px">Practice 3: Game Week</h2>
+    <p class="lede">Goals: lock in the full playbook, rehearse real game situations, assign starting jobs, and send them into Game 1 confident instead of overloaded with new information.</p>
+    <div class="timeline">
+      <div class="tblock"><div class="time">0:00</div><div><h3>Quick warm-up game</h3><span class="dur">5 min</span><p>Shortened Flag Tag — save time for game-speed work.</p></div></div>
+      <div class="tblock"><div class="time">0:05</div><div><h3>Dynamic stretch</h3><span class="dur">5 min</span><p>Keep it brief and familiar; nothing new this practice.</p></div></div>
+      <div class="tblock"><div class="time">0:10</div><div><h3>Full playbook walkthrough</h3><span class="dur">15 min</span><p>Run all four plays — Slant Right, Sweep Right, Middle Screen, Post Pass — at half speed, no defense. Everyone should be able to say their own job out loud before you speed it up.</p></div></div>
+      <div class="tblock"><div class="time">0:25</div><div><h3>Situational drills</h3><span class="dur">15 min</span><p>Set up specific game moments: "last play before halftime," "need a big gain," "protect a short lead." Teaches decision-making, not just play-running.</p></div></div>
+      <div class="tblock"><div class="time">0:40</div><div><h3>Live scrimmage — real game rules</h3><span class="dur">20 min</span><p>Run it exactly like Game 1 will go: coin toss, series, both Man Coverage defense and the offensive plays. This is the dress rehearsal.</p></div></div>
+      <div class="tblock"><div class="time">1:00</div><div><h3>Team meeting</h3><span class="dur">10 min</span><p>Confirm who's starting where, review sideline behavior and the flag-belt check, answer questions, and end with the team cheer. Keep the tone: "we're ready and this is going to be fun."</p></div></div>
+    </div>
+    <div class="total"><span>Total</span><span class="mono">≈ 70 minutes</span></div>
+  </section>
+
+  <!-- PLAYBOOK -->
+  <section class="panel" id="plays">
+    <h2 class="h">Base formation</h2>
+    <p class="lede">Same starting alignment for every play below, so the only thing that changes is what happens after the snap: Center (C) snaps to the Quarterback (QB); X and Z line up wide on either side; Y lines up in the slot. No blocking is allowed — receivers create space by running away from defenders, not by engaging them.</p>
+
+    <h2 class="h">Offense — 4 plays for Game 1</h2>
+    <div class="plays-grid">
+
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <line x1="0" y1="130" x2="320" y2="130" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/>
+          <circle cx="60" cy="150" r="9" fill="#f9f6ee"/><text x="60" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">X</text>
+          <circle cx="140" cy="150" r="9" fill="#f9f6ee"/><text x="140" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">C</text>
+          <circle cx="140" cy="120" r="9" fill="#f2a900"/><text x="140" y="123" font-size="9" text-anchor="middle" fill="#5a3d00" font-family="IBM Plex Mono">QB</text>
+          <circle cx="190" cy="150" r="9" fill="#f9f6ee"/><text x="190" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Y</text>
+          <circle cx="255" cy="150" r="9" fill="#f9f6ee"/><text x="255" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Z</text>
+          <path d="M255,150 L230,90" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-dasharray="5 3"/>
+          <path d="M60,150 L85,95" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="4 3"/>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Play 1 · Quick Pass</span>
+          <h3>Slant Right</h3>
+          <p>Z cuts sharply toward the middle 5 yards past the line; X runs the same slant on the opposite side as a decoy. QB throws quick to whichever slant comes open.</p>
+          <p class="coach-pt"><b>Coach's point:</b> This is the play they learn first — quick release, easy read, fast confidence win.</p>
+        </div>
+      </div>
+
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <line x1="0" y1="130" x2="320" y2="130" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/>
+          <circle cx="60" cy="150" r="9" fill="#f9f6ee"/><text x="60" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">X</text>
+          <circle cx="140" cy="150" r="9" fill="#f9f6ee"/><text x="140" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">C</text>
+          <circle cx="140" cy="120" r="9" fill="#f2a900"/><text x="140" y="123" font-size="9" text-anchor="middle" fill="#5a3d00" font-family="IBM Plex Mono">QB</text>
+          <circle cx="190" cy="150" r="9" fill="#f9f6ee"/><text x="190" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Y</text>
+          <circle cx="255" cy="150" r="9" fill="#f9f6ee"/><text x="255" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Z</text>
+          <path d="M190,150 C230,150 270,140 300,140" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+          <path d="M60,150 L60,80" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="4 3"/>
+          <path d="M255,150 L255,80" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="4 3"/>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Play 2 · Pitch &amp; Run</span>
+          <h3>Sweep Right</h3>
+          <p>QB pitches back to Y, who's already moving right at the snap. X and Z both sprint straight downfield to pull their defenders away and clear the sideline for Y.</p>
+          <p class="coach-pt"><b>Coach's point:</b> No blocking, so the "block" is really just X and Z running their defenders far away from the play.</p>
+        </div>
+      </div>
+
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <line x1="0" y1="130" x2="320" y2="130" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/>
+          <circle cx="60" cy="150" r="9" fill="#f9f6ee"/><text x="60" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">X</text>
+          <circle cx="140" cy="150" r="9" fill="#f9f6ee"/><text x="140" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">C</text>
+          <circle cx="140" cy="120" r="9" fill="#f2a900"/><text x="140" y="123" font-size="9" text-anchor="middle" fill="#5a3d00" font-family="IBM Plex Mono">QB</text>
+          <circle cx="190" cy="150" r="9" fill="#f9f6ee"/><text x="190" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Y</text>
+          <circle cx="255" cy="150" r="9" fill="#f9f6ee"/><text x="255" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Z</text>
+          <path d="M190,150 L190,135" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+          <path d="M60,150 L60,70" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="4 3"/>
+          <path d="M255,150 L255,70" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="4 3"/>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Play 3 · Safety Valve</span>
+          <h3>Middle Screen</h3>
+          <p>Y sneaks a few yards past the line and turns to face the QB for a short catch, while X and Z run straight downfield to clear defenders out of the middle.</p>
+          <p class="coach-pt"><b>Coach's point:</b> The "easy button" play — use it when a kid needs a confidence-building catch.</p>
+        </div>
+      </div>
+
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <line x1="0" y1="130" x2="320" y2="130" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/>
+          <circle cx="60" cy="150" r="9" fill="#f9f6ee"/><text x="60" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">X</text>
+          <circle cx="140" cy="150" r="9" fill="#f9f6ee"/><text x="140" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">C</text>
+          <circle cx="140" cy="120" r="9" fill="#f2a900"/><text x="140" y="123" font-size="9" text-anchor="middle" fill="#5a3d00" font-family="IBM Plex Mono">QB</text>
+          <circle cx="190" cy="150" r="9" fill="#f9f6ee"/><text x="190" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Y</text>
+          <circle cx="255" cy="150" r="9" fill="#f9f6ee"/><text x="255" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Z</text>
+          <path d="M255,150 L255,60 L220,35" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-dasharray="5 3"/>
+          <path d="M60,150 L60,100 L95,80" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="4 3"/>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Play 4 · Deep Shot</span>
+          <h3>Post Pass</h3>
+          <p>Z sprints deep and angles toward the middle; X runs a short out route as a check-down. Save this one for when a defender is playing close.</p>
+          <p class="coach-pt"><b>Coach's point:</b> Only call this once the team is comfortable with the other three — it needs the most timing.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="h">Defense — 2 concepts</h2>
+    <div class="plays-grid">
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <line x1="0" y1="100" x2="320" y2="100" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/>
+          <circle cx="60" cy="120" r="9" fill="#f9f6ee"/><circle cx="140" cy="120" r="9" fill="#f9f6ee"/><circle cx="190" cy="120" r="9" fill="#f9f6ee"/><circle cx="255" cy="120" r="9" fill="#f9f6ee"/>
+          <line x1="52" y1="72" x2="68" y2="88" stroke="#f2a900" stroke-width="3"/><line x1="68" y1="72" x2="52" y2="88" stroke="#f2a900" stroke-width="3"/>
+          <line x1="182" y1="72" x2="198" y2="88" stroke="#f2a900" stroke-width="3"/><line x1="198" y1="72" x2="182" y2="88" stroke="#f2a900" stroke-width="3"/>
+          <line x1="247" y1="72" x2="263" y2="88" stroke="#f2a900" stroke-width="3"/><line x1="263" y1="72" x2="247" y2="88" stroke="#f2a900" stroke-width="3"/>
+          <line x1="132" y1="60" x2="148" y2="76" stroke="#ffffff" stroke-width="3"/><line x1="148" y1="60" x2="132" y2="76" stroke="#ffffff" stroke-width="3"/>
+          <text x="140" y="45" font-size="9" text-anchor="middle" fill="#ffffff" font-family="IBM Plex Mono">RUSHER (count 5)</text>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Defense A</span>
+          <h3>Man Coverage</h3>
+          <p>Each defender lines up across from one eligible receiver and mirrors them. One defender rushes the QB, counting "one-Mississippi... five-Mississippi" out loud before crossing the line.</p>
+          <p class="coach-pt"><b>Coach's point:</b> Simplest defense to teach — "stay with your guy" is one instruction every kid can follow.</p>
+        </div>
+      </div>
+
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <line x1="0" y1="100" x2="320" y2="100" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/>
+          <circle cx="60" cy="60" r="9" fill="#f9f6ee"/><circle cx="255" cy="60" r="9" fill="#f9f6ee"/><circle cx="160" cy="40" r="9" fill="#f9f6ee"/>
+          <text x="60" y="63" font-size="8" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">L</text>
+          <text x="255" y="63" font-size="8" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">R</text>
+          <text x="160" y="43" font-size="8" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">DEEP</text>
+          <line x1="132" y1="112" x2="148" y2="128" stroke="#f2a900" stroke-width="3"/><line x1="148" y1="112" x2="132" y2="128" stroke="#f2a900" stroke-width="3"/>
+          <text x="140" y="150" font-size="9" text-anchor="middle" fill="#ffffff" font-family="IBM Plex Mono">RUSHER</text>
+          <circle cx="200" cy="115" r="9" fill="#f9f6ee"/><text x="200" y="132" font-size="8" text-anchor="middle" fill="#ffffff" font-family="IBM Plex Mono">SPY</text>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Defense B</span>
+          <h3>Soft Zone</h3>
+          <p>Three defenders drop into short-left, short-right, and deep-middle areas instead of guarding one kid. One rushes on the count, one "spies" the QB in case they run.</p>
+          <p class="coach-pt"><b>Coach's point:</b> Introduce this only after Man Coverage feels comfortable — it needs more field awareness.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  var buttons = document.querySelectorAll('.tab-btn');
+  var panels = document.querySelectorAll('.panel');
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var target = btn.getAttribute('data-tab');
+      buttons.forEach(function(b){ b.classList.toggle('active', b === btn); });
+      panels.forEach(function(p){ p.classList.toggle('active', p.id === target); });
+      window.scrollTo({top:0, behavior:'instant'});
+    });
+  });
+</script>
