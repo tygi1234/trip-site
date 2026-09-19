@@ -140,6 +140,10 @@
     box-shadow:var(--shadow);
     margin-bottom:14px;
   }
+  .card h3{
+    font-family:'Anton',sans-serif;font-weight:400;font-size:1.05rem;
+    letter-spacing:.01em;color:var(--field-900);margin:0 0 8px;
+  }
   .callout{
     background:var(--card-bg);
     border-left:4px solid var(--flag-500);
@@ -151,6 +155,8 @@
     font-size:.92rem;
   }
   .callout strong{color:var(--field-900);}
+  .cite{font-size:.78rem;color:var(--ink-600);margin:-6px 0 22px;}
+  .cite a{color:var(--field-600);}
 
   .goal-grid{
     display:grid;
@@ -165,6 +171,14 @@
     font-size:1.1rem;
   }
   .goal-grid .label{font-size:.85rem;color:var(--ink-600);}
+
+  .rules-cols{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:16px;
+    margin:14px 0 8px;
+  }
+  .rules-cols .card{margin:0;}
 
   .timeline{border-top:1px solid var(--line-200);}
   .tblock{
@@ -232,6 +246,7 @@
 
   ul.plain{margin:8px 0 0;padding-left:20px;color:var(--ink-600);font-size:.92rem;line-height:1.6;}
   ul.plain li strong{color:var(--ink-900);}
+  ul.plain.tight{margin-top:0;}
 
   .printbtn{
     font-family:'IBM Plex Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;
@@ -255,33 +270,66 @@
     <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
       <path d="M0,0 L6,3 L0,6 Z" fill="#f2a900"/>
     </marker>
+    <marker id="arrowW" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ffffff" fill-opacity=".7"/>
+    </marker>
   </defs>
 </svg>
 
 <div class="wrap">
   <header class="top">
-    <p class="eyebrow">Coach Tyler · 9-Year-Old Flag Football</p>
+    <p class="eyebrow">Coach Tyler · 9–10 Division · Neighborhood Sports Flag Football</p>
     <h1 class="title">9U Flag Playbook</h1>
     <p class="sub">Three practices before Game 1 — built for fun first, fundamentals second, plays third. Print any tab or work off your phone at the field.</p>
   </header>
 
   <nav class="tabs">
     <button class="tab-btn active" data-tab="overview">Overview</button>
-    <button class="tab-btn" data-tab="template">Weekly Template</button>
+    <button class="tab-btn" data-tab="template">Template</button>
     <button class="tab-btn" data-tab="p1">Practice 1</button>
     <button class="tab-btn" data-tab="p2">Practice 2</button>
     <button class="tab-btn" data-tab="p3">Practice 3</button>
+    <button class="tab-btn" data-tab="skills">Skills</button>
+    <button class="tab-btn" data-tab="fun">Fun</button>
     <button class="tab-btn" data-tab="plays">Playbook</button>
   </nav>
 
   <!-- OVERVIEW -->
   <section class="panel active" id="overview">
     <h2 class="h">How this is built</h2>
-    <p class="lede">Everything below assumes standard 9U rec-league flag rules. Check your league's actual rule sheet — if anything's different, tell me and I'll rebuild the timing.</p>
+    <p class="lede">Two coaches on the field, 9–10 year olds, playing under Neighborhood Sports NFL Flag rules. Everything below — station counts, drills, plays — is built around exactly two adults running practice.</p>
 
     <div class="callout">
-      <strong>Assumptions baked in:</strong> 5-on-5 (1 center/snapper, 1 QB, 3 eligible receivers), no blocking or contact, one-hand or flag-belt pull instead of a tackle, a 4–5 second rush count before a rusher can cross the line, all offensive players are eligible to catch a pass, and a 60–70 minute practice window. Swap in your real numbers any time — the drills scale fine to 6–7 players a side.
+      <strong>Confirmed from the Neighborhood Sports 9–10 division rulebook:</strong> 5-on-5, every possession starts at your own 5-yard line (no live kickoff to cover), 3 downs to reach midfield for a first down and 3 more to score, no running inside the 5-yard "No Rush Zones" before midfield or the end zone (pass only in there), rushers must line up 7 yards off the ball with a max of 2 blitzers who raise a hand pre-snap, zero contact allowed with the QB, and no fumbles — the ball is simply down where it hits the ground. Full breakdown below.
     </div>
+
+    <h2 class="h">League rules cheat sheet</h2>
+    <p class="lede">Pulled straight from the Neighborhood Sports Code of Conduct &amp; Rule Book. Double check with your specific field director in case your division runs a variant.</p>
+    <div class="rules-cols">
+      <div class="card">
+        <h3>Player rules</h3>
+        <ul class="plain tight">
+          <li><strong>First down:</strong> 3 downs to cross midfield, then 3 more downs to score. No punting once you're past midfield — if you don't score in 3 downs, the other team takes over at their own 5.</li>
+          <li><strong>No Rush Zones:</strong> the 5 yards before midfield and the 5 yards before the end zone are pass-only. No running plays inside them — 9–10 division can run anywhere else on the field.</li>
+          <li><strong>Rushing the QB:</strong> up to 2 defenders can blitz, but they must line up 7 yards off the ball and raise a hand before the snap to identify themselves. No delayed blitzes, and no contact with the QB — it's a flag pull or a batted ball only.</li>
+          <li><strong>QB clock:</strong> 7 seconds to hand off, pitch, or throw beyond the line of scrimmage. The QB can never run it himself.</li>
+          <li><strong>No fumbles:</strong> if the ball hits the ground, it's simply down at that spot — no scramble for it.</li>
+          <li><strong>Scoring:</strong> touchdown = 6, then choose a 1-point conversion from the 5-yard line or a 2-point conversion from the 10. A defensive interception returned for a score is automatically 2 points.</li>
+          <li><strong>No live kickoff:</strong> every new possession — start of a half, after a score, after a turnover past midfield — begins at your own 5-yard line.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Coach rules</h3>
+        <ul class="plain tight">
+          <li><strong>One coach on the field</strong> during a play, staying at least 5 yards behind the deepest player — no running alongside the play.</li>
+          <li><strong>Only the head coach</strong> may speak to the referee, and only during a timeout, on the sideline.</li>
+          <li><strong>Play every kid at least 50%</strong> of the game — referees are watching for this, no exceptions.</li>
+          <li><strong>Handshake line</strong> after every game, win or lose. Zero tolerance for taunting or profanity from anyone on the sideline.</li>
+          <li><strong>3 timeouts</strong> per game — the only way to stop the clock.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="cite">Source: <a href="https://www.nsports5.us/Default.aspx?tabid=1713678" target="_blank" rel="noopener">Neighborhood Sports Code of Conduct + Rule Book</a>.</p>
 
     <h2 class="h">The season goal</h2>
     <div class="goal-grid">
@@ -296,7 +344,7 @@
       <li><strong>Praise effort, not just results.</strong> At this age, attention span and confidence matter more than execution.</li>
       <li><strong>Water every 10–12 minutes,</strong> more if it's hot. Don't wait for kids to ask.</li>
       <li><strong>Keep instructions to one idea at a time.</strong> "Catch it with two hands" beats a four-part technique lecture.</li>
-      <li><strong>Every drill should have a line of 3 or fewer.</strong> Standing in line is where 9-year-olds lose interest — run stations, not one line for the whole team.</li>
+      <li><strong>Two coaches, two stations, max.</strong> Every drill below is built for exactly two groups running at once — no third station to spread yourselves across.</li>
       <li><strong>End on something fun,</strong> win or lose the scrimmage — a relay, a trick play, a team cheer.</li>
     </ul>
   </section>
@@ -304,12 +352,12 @@
   <!-- TEMPLATE -->
   <section class="panel" id="template">
     <h2 class="h">Default 65-minute practice structure</h2>
-    <p class="lede">Use this shell for every practice after the first one — just swap what's being taught in the "install" and "scrimmage" blocks. Trim proportionally if your field time runs short.</p>
+    <p class="lede">Use this shell for every practice after the first one — just swap what's being taught in the "install" and "scrimmage" blocks. Trim proportionally if your field time runs short. Built for 2 coaches running 2 stations.</p>
 
     <div class="timeline">
       <div class="tblock">
         <div class="time">0:00</div>
-        <div><h3>Arrival warm-up game</h3><span class="dur">8 min</span><p>A tag-based game that sneaks in conditioning — see "Flag Tag" in Practice 1. Start every practice this way; it's the hook that gets kids running before they realize it's a warm-up.</p></div>
+        <div><h3>Arrival warm-up game</h3><span class="dur">8 min</span><p>A tag-based game that sneaks in conditioning — see the Fun tab for "Flag Tag." Start every practice this way; it's the hook that gets kids running before they realize it's a warm-up.</p></div>
       </div>
       <div class="tblock">
         <div class="time">0:08</div>
@@ -317,7 +365,7 @@
       </div>
       <div class="tblock">
         <div class="time">0:15</div>
-        <div><h3>Skill stations (rotate in 3 small groups)</h3><span class="dur">18 min</span><p>Split the team into 3 groups of 2–3 kids, 6 minutes per station: (A) throwing &amp; catching, (B) flag pulling &amp; footwork, (C) ball security / handoffs. Small groups = more touches per kid.</p></div>
+        <div><h3>Skill stations (2 groups, 2 coaches)</h3><span class="dur">18 min</span><p>Split the team into 2 groups, 9 minutes per station: <strong>(A) Throw, Catch &amp; Ball Security</strong> and <strong>(B) Flag Pull &amp; Footwork</strong>. One coach runs each station — see the Skills tab for how to set each one up.</p></div>
       </div>
       <div class="tblock">
         <div class="time">0:33</div>
@@ -348,7 +396,7 @@
       </div>
       <div class="tblock">
         <div class="time">0:05</div>
-        <div><h3>Flag Tag (warm-up game)</h3><span class="dur">8 min</span><p>Everyone wears a flag belt inside a marked square. On "go," everyone tries to pull others' flags while keeping their own. Last flag standing wins a round. Teaches flag-pulling instinct and open-field movement without ever calling it a drill.</p></div>
+        <div><h3>Flag Tag (warm-up game)</h3><span class="dur">8 min</span><p>See the Fun tab for the full diagram and rules. Teaches flag-pulling instinct and open-field movement without ever calling it a drill.</p></div>
       </div>
       <div class="tblock">
         <div class="time">0:13</div>
@@ -356,7 +404,7 @@
       </div>
       <div class="tblock">
         <div class="time">0:18</div>
-        <div><h3>Skill assessment stations</h3><span class="dur">25 min</span><p>3 groups, ~8 min each, rotate: <strong>(A) Throw &amp; Catch</strong> — soft toss at 5–8 yards, watch grip and hands; <strong>(B) Sprint &amp; Flag Pull</strong> — 15-yard chase drill, watch angle and closing speed; <strong>(C) Handoff &amp; Ball Security</strong> — walk-through handoffs, watch if they carry with two hands. Jot quick notes on the checklist below as you go — you don't need to say anything to the kids about it.</p></div>
+        <div><h3>Skill assessment stations (2 groups, 2 coaches)</h3><span class="dur">25 min</span><p>Split the team in half, ~12–13 min per station: <strong>(A) Throw, Catch &amp; Ball Security</strong> — soft toss at 5–8 yards plus easy handoffs, watch grip, hands, and whether they carry with two hands; <strong>(B) Sprint &amp; Flag Pull</strong> — 15-yard angled chase drill, watch closing speed and pull technique. Diagrams for both are on the Skills tab. Jot quick notes on the checklist below as you go — you don't need to say anything to the kids about it.</p></div>
       </div>
       <div class="tblock">
         <div class="time">0:43</div>
@@ -364,7 +412,7 @@
       </div>
       <div class="tblock">
         <div class="time">0:53</div>
-        <div><h3>Flag-pull relay (fun finisher)</h3><span class="dur">10 min</span><p>Two lines race one at a time to pull a flag off a coach or cone-dummy and sprint back. Loud, silly, competitive — send them home excited.</p></div>
+        <div><h3>Flag-Pull Relay (fun finisher)</h3><span class="dur">10 min</span><p>See the Fun tab for the diagram. Loud, silly, competitive — send them home excited.</p></div>
       </div>
       <div class="tblock">
         <div class="time">1:03</div>
@@ -401,11 +449,11 @@
     <h2 class="h" style="margin-top:4px">Practice 2: Build the Playbook</h2>
     <p class="lede">Goals: sharpen the fundamentals from Practice 1, install two more plays, and introduce the idea of defense for the first time.</p>
     <div class="timeline">
-      <div class="tblock"><div class="time">0:00</div><div><h3>Flag Tag warm-up</h3><span class="dur">8 min</span><p>Same game as Practice 1 — repetition builds the habit. Add a rule: no running outside the square, to sharpen change-of-direction.</p></div></div>
+      <div class="tblock"><div class="time">0:00</div><div><h3>Flag Tag warm-up</h3><span class="dur">8 min</span><p>Same game as Practice 1 (Fun tab) — repetition builds the habit. Add a rule: no running outside the square, to sharpen change-of-direction.</p></div></div>
       <div class="tblock"><div class="time">0:08</div><div><h3>Dynamic stretch &amp; agility</h3><span class="dur">7 min</span><p>Add a simple cone weave to last week's warm-up.</p></div></div>
-      <div class="tblock"><div class="time">0:15</div><div><h3>Skill stations</h3><span class="dur">15 min</span><p>3 groups: <strong>(A) Catching in stride</strong> — thrown slightly ahead so they run through it; <strong>(B) Flag-pull angles</strong> — approaching from the side, not head-on; <strong>(C) Snap-and-go</strong> — center-to-QB exchange.</p></div></div>
+      <div class="tblock"><div class="time">0:15</div><div><h3>Skill stations (2 groups, 2 coaches)</h3><span class="dur">15 min</span><p>Split in half, ~7–8 min per station: <strong>(A) Catching in Stride + Snap-and-Go</strong> — thrown slightly ahead so they run through it, plus the center-to-QB exchange; <strong>(B) Flag-Pull Angles</strong> — approaching from the side, not head-on. Diagrams on the Skills tab.</p></div></div>
       <div class="tblock"><div class="time">0:30</div><div><h3>Install: Sweep Right &amp; Middle Screen</h3><span class="dur">15 min</span><p>Walk through both new plays at half speed (see Playbook tab), then review <strong>Slant Right</strong> from last week so all three are fresh.</p></div></div>
-      <div class="tblock"><div class="time">0:45</div><div><h3>Intro to defense</h3><span class="dur">10 min</span><p>Teach <strong>Man Coverage</strong>: each defender lines up across from one eligible receiver. One player rushes the QB after counting to 5 out loud ("Mississippi" counts work great and self-police the rush count).</p></div></div>
+      <div class="tblock"><div class="time">0:45</div><div><h3>Intro to defense</h3><span class="dur">10 min</span><p>Teach <strong>Man Coverage</strong>: each defender lines up across from one eligible receiver. Remember the real rule — rushers must start 7 yards off the ball and raise a hand pre-snap; use "Mississippi" counts to feel that distance.</p></div></div>
       <div class="tblock"><div class="time">0:55</div><div><h3>Live scrimmage</h3><span class="dur">15 min</span><p>Split into two mini-squads, offense vs. defense, rotate who's on offense every 3–4 plays so everyone gets both sides.</p></div></div>
       <div class="tblock"><div class="time">1:10</div><div><h3>Water, cheer, recap</h3><span class="dur">3 min</span><p>Highlight one good rep from the scrimmage by name.</p></div></div>
     </div>
@@ -420,12 +468,192 @@
     <div class="timeline">
       <div class="tblock"><div class="time">0:00</div><div><h3>Quick warm-up game</h3><span class="dur">5 min</span><p>Shortened Flag Tag — save time for game-speed work.</p></div></div>
       <div class="tblock"><div class="time">0:05</div><div><h3>Dynamic stretch</h3><span class="dur">5 min</span><p>Keep it brief and familiar; nothing new this practice.</p></div></div>
-      <div class="tblock"><div class="time">0:10</div><div><h3>Full playbook walkthrough</h3><span class="dur">15 min</span><p>Run all four plays — Slant Right, Sweep Right, Middle Screen, Post Pass — at half speed, no defense. Everyone should be able to say their own job out loud before you speed it up.</p></div></div>
-      <div class="tblock"><div class="time">0:25</div><div><h3>Situational drills</h3><span class="dur">15 min</span><p>Set up specific game moments: "last play before halftime," "need a big gain," "protect a short lead." Teaches decision-making, not just play-running.</p></div></div>
-      <div class="tblock"><div class="time">0:40</div><div><h3>Live scrimmage — real game rules</h3><span class="dur">20 min</span><p>Run it exactly like Game 1 will go: coin toss, series, both Man Coverage defense and the offensive plays. This is the dress rehearsal.</p></div></div>
-      <div class="tblock"><div class="time">1:00</div><div><h3>Team meeting</h3><span class="dur">10 min</span><p>Confirm who's starting where, review sideline behavior and the flag-belt check, answer questions, and end with the team cheer. Keep the tone: "we're ready and this is going to be fun."</p></div></div>
+      <div class="tblock"><div class="time">0:10</div><div><h3>Full playbook walkthrough</h3><span class="dur">15 min</span><p>Run every pass and run in the Playbook tab at half speed, no defense. Everyone should be able to say their own job out loud before you speed it up.</p></div></div>
+      <div class="tblock"><div class="time">0:25</div><div><h3>Situational drills</h3><span class="dur">15 min</span><p>Set up specific game moments: "3rd down inside the No Rush Zone" (pass only — which play do we call?), "need a big gain," "protect a short lead." Teaches decision-making, not just play-running.</p></div></div>
+      <div class="tblock"><div class="time">0:40</div><div><h3>Live scrimmage — real game rules</h3><span class="dur">20 min</span><p>Run it exactly like Game 1 will go: coin toss, 3 downs to midfield, 3 downs to score, both Man Coverage defense and the offensive plays. This is the dress rehearsal.</p></div></div>
+      <div class="tblock"><div class="time">1:00</div><div><h3>Team meeting</h3><span class="dur">10 min</span><p>Confirm who's starting where, review the League Rules Cheat Sheet (Overview tab) and sideline behavior, answer questions, and end with the team cheer. Keep the tone: "we're ready and this is going to be fun."</p></div></div>
     </div>
     <div class="total"><span>Total</span><span class="mono">≈ 70 minutes</span></div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="panel" id="skills">
+    <h2 class="h">Skills &amp; drills</h2>
+    <p class="lede">Every station referenced in the practice plans, with a diagram and a one-line coaching cue. Built as 2 stand-alone drills per skill area so two coaches can each own one at a time.</p>
+
+    <div class="plays-grid">
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <circle cx="90" cy="55" r="9" fill="#f9f6ee"/><circle cx="160" cy="55" r="9" fill="#f9f6ee"/><circle cx="230" cy="55" r="9" fill="#f9f6ee"/>
+          <circle cx="90" cy="130" r="9" fill="#f9f6ee"/><circle cx="160" cy="130" r="9" fill="#f9f6ee"/><circle cx="230" cy="130" r="9" fill="#f9f6ee"/>
+          <path d="M160,120 L160,65" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+          <path d="M170,65 L170,120" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-dasharray="4 3"/>
+          <text x="200" y="95" font-size="9" text-anchor="middle" fill="#ffffff" font-family="IBM Plex Mono">5-8 YDS</text>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Skill · Throw &amp; Catch</span>
+          <h3>5-Yard Pitch &amp; Catch</h3>
+          <p>Partners face each other 5–8 yards apart and throw back and forth — one knee-high, one chest-high, one thrown slightly to a side so they have to move. Rotate partners every few minutes.</p>
+          <p class="coach-pt"><b>Cue:</b> "Point your front shoulder at your target, step and throw." For catching: "hands out like a triangle, look it into your hands."</p>
+        </div>
+      </div>
+
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <rect x="30" y="80" width="260" height="30" fill="#ffffff" fill-opacity=".12"/>
+          <circle cx="45" cy="95" r="9" fill="#f2a900"/><text x="45" y="98" font-size="8" text-anchor="middle" fill="#5a3d00" font-family="IBM Plex Mono">K</text>
+          <path d="M55,95 L275,95" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-dasharray="5 3"/>
+          <circle cx="120" cy="60" r="9" fill="#f9f6ee"/><text x="120" y="63" font-size="7" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">CH</text>
+          <path d="M120,69 L120,90" stroke="#ffffff" stroke-opacity=".7" stroke-width="2" marker-end="url(#arrowW)"/>
+          <circle cx="210" cy="130" r="9" fill="#f9f6ee"/><text x="210" y="133" font-size="7" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">CH</text>
+          <path d="M210,121 L210,100" stroke="#ffffff" stroke-opacity=".7" stroke-width="2" marker-end="url(#arrowW)"/>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Skill · Catch on the Move</span>
+          <h3>Gauntlet Catch</h3>
+          <p>One kid jogs a straight lane while two coaches toss soft passes into the lane from either side, one after another, without the runner stopping.</p>
+          <p class="coach-pt"><b>Cue:</b> "Catch it, tuck it, two hands." Teaches catching in stride instead of stopping to catch — what game reps actually look like.</p>
+        </div>
+      </div>
+
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <circle cx="40" cy="60" r="9" fill="#f2a900"/><text x="40" y="63" font-size="8" text-anchor="middle" fill="#5a3d00" font-family="IBM Plex Mono">K</text>
+          <path d="M50,65 L260,140" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-dasharray="5 3"/>
+          <circle cx="60" cy="110" r="9" fill="#f9f6ee"/><text x="60" y="113" font-size="8" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">D</text>
+          <path d="M70,113 L230,138" stroke="#ffffff" stroke-opacity=".7" stroke-width="2" fill="none" marker-end="url(#arrowW)" stroke-dasharray="4 3"/>
+          <line x1="255" y1="132" x2="269" y2="146" stroke="#f2a900" stroke-width="3"/><line x1="269" y1="132" x2="255" y2="146" stroke="#f2a900" stroke-width="3"/>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Skill · Flag Pull</span>
+          <h3>Angle Chase</h3>
+          <p>Ball carrier jogs an easy diagonal across a 10-yard lane. The defender starts a step behind and to the side and pursues from the angle — never straight on from behind.</p>
+          <p class="coach-pt"><b>Cue:</b> "Take the angle, not the chase." Approaching from the hip is faster and safer than a head-on, tackle-style approach.</p>
+        </div>
+      </div>
+
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <polygon points="90,70 82,85 98,85" fill="#f2a900"/>
+          <polygon points="90,120 82,135 98,135" fill="#f2a900"/>
+          <polygon points="230,70 222,85 238,85" fill="#f2a900"/>
+          <polygon points="230,120 222,135 238,135" fill="#f2a900"/>
+          <circle cx="50" cy="105" r="9" fill="#f9f6ee"/><text x="50" y="108" font-size="8" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">QB</text>
+          <circle cx="270" cy="105" r="9" fill="#f9f6ee"/><text x="270" y="108" font-size="8" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">RB</text>
+          <path d="M59,105 L155,105" stroke="#ffffff" stroke-opacity=".7" stroke-width="2" fill="none" marker-end="url(#arrowW)"/>
+          <path d="M261,105 L165,105" stroke="#ffffff" stroke-opacity=".7" stroke-width="2" fill="none" marker-end="url(#arrowW)"/>
+          <circle cx="160" cy="105" r="6" fill="#f2a900"/>
+          <text x="160" y="130" font-size="8" text-anchor="middle" fill="#ffffff" font-family="IBM Plex Mono">HAND-OFF</text>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Skill · Ball Security</span>
+          <h3>Handoff Gate</h3>
+          <p>QB and running back jog toward each other through two cone "gates" set 5 yards apart, exchanging a clean handoff right at the midpoint.</p>
+          <p class="coach-pt"><b>Cue for the runner:</b> "Two hands until it's tucked, then high and tight." <b>Cue for the QB:</b> "Place it in the pocket, don't throw the handoff."</p>
+        </div>
+      </div>
+
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <polygon points="110,60 102,75 118,75" fill="#f2a900"/>
+          <polygon points="210,60 202,75 218,75" fill="#f2a900"/>
+          <polygon points="110,130 102,145 118,145" fill="#f2a900"/>
+          <polygon points="210,130 202,145 218,145" fill="#f2a900"/>
+          <path d="M110,68 C160,50 200,50 210,68 C225,90 225,115 210,138 C200,155 160,155 110,138 C95,115 95,90 110,68 Z" stroke="#ffffff" stroke-opacity=".6" stroke-width="2" fill="none" stroke-dasharray="4 3" marker-end="url(#arrowW)"/>
+          <circle cx="110" cy="68" r="8" fill="#f2a900"/>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Skill · Footwork</span>
+          <h3>4-Cone Box Shuffle</h3>
+          <p>Set 4 cones in a 5x5 yard square. Kids shuffle sideways around the whole box without crossing their feet, staying low the entire way around.</p>
+          <p class="coach-pt"><b>Cue:</b> "Stay low, quick feet, chest over knees." Same footwork they'll use to mirror a receiver or change direction chasing a flag.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUN -->
+  <section class="panel" id="fun">
+    <h2 class="h">Fun &amp; games</h2>
+    <p class="lede">Skill-building disguised as games. Use these for warm-ups, finishers, or anytime energy is dropping — every one of them is secretly a football drill.</p>
+
+    <div class="plays-grid">
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <rect x="30" y="25" width="260" height="130" fill="none" stroke="#ffffff" stroke-opacity=".5" stroke-width="2" stroke-dasharray="6 4"/>
+          <circle cx="90" cy="60" r="9" fill="#f2a900"/><circle cx="200" cy="50" r="9" fill="#f9f6ee"/>
+          <circle cx="130" cy="120" r="9" fill="#f9f6ee"/><circle cx="240" cy="110" r="9" fill="#f2a900"/>
+          <circle cx="170" cy="80" r="9" fill="#f9f6ee"/>
+          <path d="M100,63 L188,52" stroke="#f2a900" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="4 3"/>
+          <path d="M230,108 L140,119" stroke="#f2a900" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="4 3"/>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Fun · Warm-Up</span>
+          <h3>Flag Tag</h3>
+          <p>Everyone wears their flag belt inside a marked square. On "go," everyone tries to pull others' flags while protecting their own. Last flag standing wins the round — reset and go again.</p>
+          <p class="coach-pt"><b>Why it works:</b> zero setup beyond the flags they already wear, and it teaches flag-pull instinct and change-of-direction without ever feeling like a drill.</p>
+        </div>
+      </div>
+
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <circle cx="35" cy="60" r="8" fill="#f9f6ee"/><circle cx="35" cy="85" r="8" fill="#f9f6ee"/><circle cx="35" cy="110" r="8" fill="#f9f6ee"/>
+          <circle cx="35" cy="130" r="8" fill="#f9f6ee"/>
+          <path d="M45,70 L270,80" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-dasharray="5 3"/>
+          <path d="M270,90 L45,100" stroke="#ffffff" stroke-opacity=".6" stroke-width="2" fill="none" marker-end="url(#arrowW)" stroke-dasharray="4 3"/>
+          <circle cx="280" cy="85" r="9" fill="#f2a900"/><text x="280" y="70" font-size="8" text-anchor="middle" fill="#ffffff" font-family="IBM Plex Mono">FLAG</text>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Fun · Relay</span>
+          <h3>Flag-Pull Relay</h3>
+          <p>Two lines race one at a time to sprint down, pull the flag off a coach or cone-dummy, and sprint back to tag the next kid in line.</p>
+          <p class="coach-pt"><b>Why it works:</b> loud, competitive, and every kid gets a clear individual turn to succeed in front of the team.</p>
+        </div>
+      </div>
+
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <rect x="20" y="45" width="280" height="28" fill="#ffffff" fill-opacity=".12"/>
+          <rect x="20" y="110" width="280" height="28" fill="#ffffff" fill-opacity=".12"/>
+          <circle cx="35" cy="59" r="8" fill="#f2a900"/><path d="M45,59 L285,59" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-dasharray="5 3"/>
+          <circle cx="35" cy="124" r="8" fill="#f9f6ee"/><path d="M45,124 L285,124" stroke="#ffffff" stroke-opacity=".7" stroke-width="2.5" fill="none" marker-end="url(#arrowW)" stroke-dasharray="5 3"/>
+          <line x1="292" y1="45" x2="292" y2="138" stroke="#ffffff" stroke-width="2" stroke-dasharray="3 3"/>
+          <text x="292" y="30" font-size="8" text-anchor="middle" fill="#ffffff" font-family="IBM Plex Mono">FINISH</text>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Fun · Race</span>
+          <h3>Gauntlet Sprint</h3>
+          <p>Same setup as the Gauntlet Catch drill on the Skills tab, but run it as a head-to-head race between two kids in side-by-side lanes — first one through with a clean catch wins.</p>
+          <p class="coach-pt"><b>Why it works:</b> turns a skill rep into a competition kids ask to run again.</p>
+        </div>
+      </div>
+
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <circle cx="160" cy="55" r="10" fill="#f9f6ee"/><text x="160" y="58" font-size="8" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">CH</text>
+          <circle cx="110" cy="120" r="8" fill="#f2a900"/><circle cx="150" cy="130" r="8" fill="#f2a900"/><circle cx="190" cy="130" r="8" fill="#f2a900"/><circle cx="230" cy="120" r="8" fill="#f2a900"/>
+          <path d="M160,65 L160,105" stroke="#ffffff" stroke-opacity=".6" stroke-width="2" fill="none" marker-end="url(#arrowW)"/>
+          <rect x="35" y="35" width="46" height="20" rx="10" fill="#ffffff" fill-opacity=".9"/><text x="58" y="49" font-size="8" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">UP!</text>
+          <rect x="35" y="140" width="60" height="20" rx="10" fill="#ffffff" fill-opacity=".9"/><text x="65" y="154" font-size="8" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">DOWN!</text>
+          <rect x="230" y="35" width="66" height="20" rx="10" fill="#ffffff" fill-opacity=".9"/><text x="263" y="49" font-size="8" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">FREEZE!</text>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Fun · Listening &amp; Agility</span>
+          <h3>Coach Says</h3>
+          <p>Simon Says with football movements: call out "high knees," "backpedal," "freeze," or "flag down" and kids react instantly. Anyone who reacts to the wrong call, or reacts too slow, sits out one round.</p>
+          <p class="coach-pt"><b>Why it works:</b> builds the same quick-reaction listening they'll need for snap counts and coverage calls, disguised as a game.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- PLAYBOOK -->
@@ -433,7 +661,8 @@
     <h2 class="h">Base formation</h2>
     <p class="lede">Same starting alignment for every play below, so the only thing that changes is what happens after the snap: Center (C) snaps to the Quarterback (QB); X and Z line up wide on either side; Y lines up in the slot. No blocking is allowed — receivers create space by running away from defenders, not by engaging them.</p>
 
-    <h2 class="h">Offense — 4 plays for Game 1</h2>
+    <h2 class="h">Offensive passes</h2>
+    <p class="lede">The 5-yard No Rush Zones before midfield and before the end zone are pass-only, so most of this offense's yardage comes through the air. These favor short, safety-valve, and comeback-style routes — receivers working back toward the QB catch far more reliably at this age than ones racing away from him.</p>
     <div class="plays-grid">
 
       <div class="play-card">
@@ -446,10 +675,10 @@
           <circle cx="190" cy="150" r="9" fill="#f9f6ee"/><text x="190" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Y</text>
           <circle cx="255" cy="150" r="9" fill="#f9f6ee"/><text x="255" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Z</text>
           <path d="M255,150 L230,90" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-dasharray="5 3"/>
-          <path d="M60,150 L85,95" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="4 3"/>
+          <path d="M60,150 L85,95" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrowW)" stroke-dasharray="4 3"/>
         </svg>
         <div class="pc-body">
-          <span class="play-tag">Play 1 · Quick Pass</span>
+          <span class="play-tag">Play · Quick Pass</span>
           <h3>Slant Right</h3>
           <p>Z cuts sharply toward the middle 5 yards past the line; X runs the same slant on the opposite side as a decoy. QB throws quick to whichever slant comes open.</p>
           <p class="coach-pt"><b>Coach's point:</b> This is the play they learn first — quick release, easy read, fast confidence win.</p>
@@ -465,33 +694,12 @@
           <circle cx="140" cy="120" r="9" fill="#f2a900"/><text x="140" y="123" font-size="9" text-anchor="middle" fill="#5a3d00" font-family="IBM Plex Mono">QB</text>
           <circle cx="190" cy="150" r="9" fill="#f9f6ee"/><text x="190" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Y</text>
           <circle cx="255" cy="150" r="9" fill="#f9f6ee"/><text x="255" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Z</text>
-          <path d="M190,150 C230,150 270,140 300,140" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
-          <path d="M60,150 L60,80" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="4 3"/>
-          <path d="M255,150 L255,80" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="4 3"/>
-        </svg>
-        <div class="pc-body">
-          <span class="play-tag">Play 2 · Pitch &amp; Run</span>
-          <h3>Sweep Right</h3>
-          <p>QB pitches back to Y, who's already moving right at the snap. X and Z both sprint straight downfield to pull their defenders away and clear the sideline for Y.</p>
-          <p class="coach-pt"><b>Coach's point:</b> No blocking, so the "block" is really just X and Z running their defenders far away from the play.</p>
-        </div>
-      </div>
-
-      <div class="play-card">
-        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
-          <rect width="320" height="180" fill="#1d7350"/>
-          <line x1="0" y1="130" x2="320" y2="130" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/>
-          <circle cx="60" cy="150" r="9" fill="#f9f6ee"/><text x="60" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">X</text>
-          <circle cx="140" cy="150" r="9" fill="#f9f6ee"/><text x="140" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">C</text>
-          <circle cx="140" cy="120" r="9" fill="#f2a900"/><text x="140" y="123" font-size="9" text-anchor="middle" fill="#5a3d00" font-family="IBM Plex Mono">QB</text>
-          <circle cx="190" cy="150" r="9" fill="#f9f6ee"/><text x="190" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Y</text>
-          <circle cx="255" cy="150" r="9" fill="#f9f6ee"/><text x="255" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Z</text>
           <path d="M190,150 L190,135" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
-          <path d="M60,150 L60,70" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="4 3"/>
-          <path d="M255,150 L255,70" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="4 3"/>
+          <path d="M60,150 L60,70" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrowW)" stroke-dasharray="4 3"/>
+          <path d="M255,150 L255,70" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrowW)" stroke-dasharray="4 3"/>
         </svg>
         <div class="pc-body">
-          <span class="play-tag">Play 3 · Safety Valve</span>
+          <span class="play-tag">Play · Safety Valve</span>
           <h3>Middle Screen</h3>
           <p>Y sneaks a few yards past the line and turns to face the QB for a short catch, while X and Z run straight downfield to clear defenders out of the middle.</p>
           <p class="coach-pt"><b>Coach's point:</b> The "easy button" play — use it when a kid needs a confidence-building catch.</p>
@@ -507,14 +715,59 @@
           <circle cx="140" cy="120" r="9" fill="#f2a900"/><text x="140" y="123" font-size="9" text-anchor="middle" fill="#5a3d00" font-family="IBM Plex Mono">QB</text>
           <circle cx="190" cy="150" r="9" fill="#f9f6ee"/><text x="190" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Y</text>
           <circle cx="255" cy="150" r="9" fill="#f9f6ee"/><text x="255" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Z</text>
-          <path d="M255,150 L255,60 L220,35" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-dasharray="5 3"/>
-          <path d="M60,150 L60,100 L95,80" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="4 3"/>
+          <path d="M255,150 L255,95 L233,113" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-dasharray="5 3"/>
+          <path d="M60,150 L85,100" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrowW)" stroke-dasharray="4 3"/>
         </svg>
         <div class="pc-body">
-          <span class="play-tag">Play 4 · Deep Shot</span>
-          <h3>Post Pass</h3>
-          <p>Z sprints deep and angles toward the middle; X runs a short out route as a check-down. Save this one for when a defender is playing close.</p>
-          <p class="coach-pt"><b>Coach's point:</b> Only call this once the team is comfortable with the other three — it needs the most timing.</p>
+          <span class="play-tag">Play · Comeback</span>
+          <h3>Curl</h3>
+          <p>Z sprints downfield about 8 yards, plants, and curls back toward the QB. X runs a shorter slant on the other side as a decoy and second option.</p>
+          <p class="coach-pt"><b>Coach's point:</b> Replaces a straight deep post at this age — kids catch a ball coming toward them far more reliably than one they're racing away from.</p>
+        </div>
+      </div>
+
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <line x1="0" y1="130" x2="320" y2="130" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/>
+          <circle cx="60" cy="150" r="9" fill="#f9f6ee"/><text x="60" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">X</text>
+          <circle cx="140" cy="150" r="9" fill="#f9f6ee"/><text x="140" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">C</text>
+          <circle cx="140" cy="120" r="9" fill="#f2a900"/><text x="140" y="123" font-size="9" text-anchor="middle" fill="#5a3d00" font-family="IBM Plex Mono">QB</text>
+          <circle cx="190" cy="150" r="9" fill="#f9f6ee"/><text x="190" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Y</text>
+          <circle cx="255" cy="150" r="9" fill="#f9f6ee"/><text x="255" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Z</text>
+          <path d="M60,150 L60,118 L290,118" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)" stroke-dasharray="5 3"/>
+          <path d="M255,150 L255,70" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrowW)" stroke-dasharray="4 3"/>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Play · Crossing Route</span>
+          <h3>Drag Across the Middle</h3>
+          <p>X runs a shallow route straight across the field just past the line, staying low and available the whole way. Z clears out deep to open the space. QB can hit X in stride, or let him settle and turn back for an easy pitch-and-catch.</p>
+          <p class="coach-pt"><b>Coach's point:</b> One of the easiest completions to teach — X is moving toward open grass and can always turn back to the QB, no need for a perfectly timed deep throw.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="h">Offensive runs</h2>
+    <p class="lede">Remember it's pass-only inside both No Rush Zones (5 yards before midfield, 5 yards before the end zone) — save this one for open field between them.</p>
+    <div class="plays-grid">
+      <div class="play-card">
+        <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="180" fill="#1d7350"/>
+          <line x1="0" y1="130" x2="320" y2="130" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/>
+          <circle cx="60" cy="150" r="9" fill="#f9f6ee"/><text x="60" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">X</text>
+          <circle cx="140" cy="150" r="9" fill="#f9f6ee"/><text x="140" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">C</text>
+          <circle cx="140" cy="120" r="9" fill="#f2a900"/><text x="140" y="123" font-size="9" text-anchor="middle" fill="#5a3d00" font-family="IBM Plex Mono">QB</text>
+          <circle cx="190" cy="150" r="9" fill="#f9f6ee"/><text x="190" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Y</text>
+          <circle cx="255" cy="150" r="9" fill="#f9f6ee"/><text x="255" y="153" font-size="9" text-anchor="middle" fill="#155c41" font-family="IBM Plex Mono">Z</text>
+          <path d="M190,150 C230,150 270,140 300,140" stroke="#f2a900" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+          <path d="M60,150 L60,80" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrowW)" stroke-dasharray="4 3"/>
+          <path d="M255,150 L255,80" stroke="#ffffff" stroke-opacity=".55" stroke-width="2" fill="none" marker-end="url(#arrowW)" stroke-dasharray="4 3"/>
+        </svg>
+        <div class="pc-body">
+          <span class="play-tag">Play · Pitch &amp; Run</span>
+          <h3>Sweep Right</h3>
+          <p>QB pitches back to Y, who's already moving right at the snap. X and Z both sprint straight downfield to pull their defenders away and clear the sideline for Y.</p>
+          <p class="coach-pt"><b>Coach's point:</b> No blocking, so the "block" is really just X and Z running their defenders far away from the play.</p>
         </div>
       </div>
     </div>
@@ -530,12 +783,12 @@
           <line x1="182" y1="72" x2="198" y2="88" stroke="#f2a900" stroke-width="3"/><line x1="198" y1="72" x2="182" y2="88" stroke="#f2a900" stroke-width="3"/>
           <line x1="247" y1="72" x2="263" y2="88" stroke="#f2a900" stroke-width="3"/><line x1="263" y1="72" x2="247" y2="88" stroke="#f2a900" stroke-width="3"/>
           <line x1="132" y1="60" x2="148" y2="76" stroke="#ffffff" stroke-width="3"/><line x1="148" y1="60" x2="132" y2="76" stroke="#ffffff" stroke-width="3"/>
-          <text x="140" y="45" font-size="9" text-anchor="middle" fill="#ffffff" font-family="IBM Plex Mono">RUSHER (count 5)</text>
+          <text x="140" y="45" font-size="9" text-anchor="middle" fill="#ffffff" font-family="IBM Plex Mono">RUSHER (7 yds off ball)</text>
         </svg>
         <div class="pc-body">
           <span class="play-tag">Defense A</span>
           <h3>Man Coverage</h3>
-          <p>Each defender lines up across from one eligible receiver and mirrors them. One defender rushes the QB, counting "one-Mississippi... five-Mississippi" out loud before crossing the line.</p>
+          <p>Each defender lines up across from one eligible receiver and mirrors them. Up to 2 defenders can rush from 7 yards off the ball, raising a hand pre-snap to identify themselves — no delayed blitzes, no contact with the QB.</p>
           <p class="coach-pt"><b>Coach's point:</b> Simplest defense to teach — "stay with your guy" is one instruction every kid can follow.</p>
         </div>
       </div>
@@ -555,7 +808,7 @@
         <div class="pc-body">
           <span class="play-tag">Defense B</span>
           <h3>Soft Zone</h3>
-          <p>Three defenders drop into short-left, short-right, and deep-middle areas instead of guarding one kid. One rushes on the count, one "spies" the QB in case they run.</p>
+          <p>Three defenders drop into short-left, short-right, and deep-middle areas instead of guarding one kid. One rushes from 7 yards off the ball, one "spies" the QB in case he tries to scramble.</p>
           <p class="coach-pt"><b>Coach's point:</b> Introduce this only after Man Coverage feels comfortable — it needs more field awareness.</p>
         </div>
       </div>
