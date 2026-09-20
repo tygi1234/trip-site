@@ -110,6 +110,20 @@
     font-size:15px;
     font-weight:600;
     color:var(--text-main);
+    text-decoration:none;
+    transition:border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .date-pill:hover{
+    border-color:var(--cyan);
+    transform:translateY(-1px);
+  }
+
+  .date-pill .add-cal{
+    color:var(--cyan);
+    font-weight:600;
+    font-size:13px;
+    opacity:0.9;
   }
 
   section{
@@ -321,7 +335,7 @@
     <h1 class="title">Beyond Reality</h1>
     <div class="birthday-line">Owen Turns 10 🎉</div>
     <div class="subtitle">VR <span class="dot">•</span> Live Action Games <span class="dot">•</span> Pizza &amp; Cake</div>
-    <div class="date-pill">📅 Saturday, September 26, 2026</div>
+    <a class="date-pill" href="https://www.google.com/calendar/render?action=TEMPLATE&text=Owen%27s+10th+Birthday+Party&dates=20260926T183000Z/20260927T010000Z&details=Sandbox+VR%2C+Activate+-+The+Domain%2C+and+pizza+%26+cake+back+at+Steiner+Ranch.%0A%0AFull+details%3A+https%3A%2F%2Ftygi1234.github.io%2Ftrip-site%2Fowens-birthday-party.html&location=2005+Val+Verde%2C+Austin%2C+TX+78732" target="_blank" rel="noopener">📅 Saturday, September 26, 2026 <span class="add-cal">+ Add to Calendar</span></a>
   </header>
 
   <section>
