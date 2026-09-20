@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Owen's 10th Birthday Bash — Level Up!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-dark:#0d0221;
+    --bg-dark2:#1a0b3d;
+    --neon-pink:#ff2ec4;
+    --neon-cyan:#28f9ff;
+    --neon-green:#7dff4f;
+    --neon-yellow:#ffe14f;
+    --neon-purple:#9d4dff;
+    --card-bg:#180a35;
+    --card-border:rgba(255,255,255,0.08);
+    --text-main:#f2eaff;
+    --text-dim:#c3b4e8;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{
+    margin:0;
+    padding:0;
+    background:var(--bg-dark);
+    color:var(--text-main);
+    font-family:'Baloo 2', sans-serif;
+    overflow-x:hidden;
+  }
+
+  body{
+    background:
+      radial-gradient(circle at 15% 10%, rgba(157,77,255,0.25), transparent 45%),
+      radial-gradient(circle at 85% 20%, rgba(40,249,255,0.18), transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(255,46,196,0.18), transparent 50%),
+      var(--bg-dark);
+    min-height:100vh;
+  }
+
+  .stars{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    background-image:
+      radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+      radial-gradient(2px 2px at 60% 10%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 80% 70%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 30% 80%, #fff, transparent),
+      radial-gradient(2px 2px at 90% 40%, #fff, transparent),
+      radial-gradient(1px 1px at 45% 55%, #fff, transparent);
+    opacity:0.35;
+  }
+
+  .wrap{
+    position:relative;
+    z-index:1;
+    max-width:720px;
+    margin:0 auto;
+    padding:28px 18px 60px;
+  }
+
+  header.hero{
+    text-align:center;
+    padding:22px 12px 30px;
+  }
+
+  .badge{
+    display:inline-block;
+    font-family:'Press Start 2P', monospace;
+    font-size:11px;
+    letter-spacing:1px;
+    color:var(--neon-yellow);
+    background:rgba(255,225,79,0.08);
+    border:1px solid rgba(255,225,79,0.4);
+    border-radius:20px;
+    padding:8px 16px;
+    margin-bottom:18px;
+    text-shadow:0 0 8px rgba(255,225,79,0.6);
+  }
+
+  h1.title{
+    font-family:'Press Start 2P', monospace;
+    font-size:clamp(24px, 8vw, 42px);
+    line-height:1.4;
+    margin:0 0 10px;
+    color:#fff;
+    text-shadow:
+      0 0 6px var(--neon-pink),
+      0 0 18px var(--neon-pink),
+      0 0 36px var(--neon-purple);
+    animation: flicker 3.5s infinite ease-in-out;
+  }
+
+  @keyframes flicker{
+    0%,100%{opacity:1;}
+    48%{opacity:1;}
+    50%{opacity:0.85;}
+    52%{opacity:1;}
+  }
+
+  .subtitle{
+    font-size:clamp(18px,5vw,24px);
+    font-weight:800;
+    color:var(--neon-cyan);
+    text-shadow:0 0 10px rgba(40,249,255,0.7);
+    margin:6px 0 18px;
+  }
+
+  .date-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    border-radius:999px;
+    padding:10px 20px;
+    font-size:16px;
+    font-weight:700;
+    color:var(--text-main);
+  }
+
+  .date-pill span.emoji{font-size:18px;}
+
+  section{
+    margin:34px 0;
+  }
+
+  .section-title{
+    font-family:'Press Start 2P', monospace;
+    font-size:14px;
+    color:var(--neon-green);
+    text-shadow:0 0 8px rgba(125,255,79,0.6);
+    margin-bottom:16px;
+    letter-spacing:0.5px;
+  }
+
+  .card{
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    border-radius:16px;
+    padding:20px 20px;
+    margin-bottom:14px;
+    box-shadow:0 8px 24px rgba(0,0,0,0.35);
+    position:relative;
+    overflow:hidden;
+  }
+
+  .card::before{
+    content:"";
+    position:absolute;
+    left:0;top:0;bottom:0;
+    width:5px;
+  }
+
+  .level-card{
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+  }
+
+  .level-tag{
+    font-family:'Press Start 2P', monospace;
+    font-size:10px;
+    color:var(--bg-dark);
+    background:var(--neon-yellow);
+    border-radius:8px;
+    padding:6px 8px;
+    white-space:nowrap;
+    flex-shrink:0;
+    margin-top:2px;
+    box-shadow:0 0 10px rgba(255,225,79,0.5);
+  }
+
+  .level-card:nth-of-type(1) .level-tag{background:var(--neon-cyan);}
+  .level-card:nth-of-type(2) .level-tag{background:var(--neon-pink);color:#fff;}
+  .level-card:nth-of-type(3) .level-tag{background:var(--neon-green);}
+  .level-card:nth-of-type(4) .level-tag{background:var(--neon-yellow);}
+
+  .level-body h3{
+    margin:0 0 6px;
+    font-size:18px;
+    color:#fff;
+  }
+
+  .level-body p{
+    margin:0;
+    font-size:15px;
+    color:var(--text-dim);
+    line-height:1.5;
+  }
+
+  .level-body p + p{margin-top:6px;}
+
+  .time-chip{
+    display:inline-block;
+    background:rgba(255,255,255,0.06);
+    border:1px solid var(--card-border);
+    border-radius:8px;
+    padding:2px 8px;
+    font-size:13px;
+    color:var(--neon-cyan);
+    margin-left:6px;
+    font-weight:700;
+  }
+
+  .waiver-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+
+  @media (max-width:520px){
+    .waiver-grid{grid-template-columns:1fr;}
+  }
+
+  .waiver-btn{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    text-align:center;
+    text-decoration:none;
+    color:#fff;
+    background:linear-gradient(160deg, var(--neon-purple), #5a1fcf);
+    border-radius:14px;
+    padding:22px 14px;
+    font-weight:800;
+    font-size:15px;
+    border:1px solid rgba(255,255,255,0.15);
+    box-shadow:0 8px 20px rgba(157,77,255,0.35);
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .waiver-btn.alt{
+    background:linear-gradient(160deg, #0fb8c9, #0a6f8c);
+    box-shadow:0 8px 20px rgba(40,249,255,0.25);
+  }
+
+  .waiver-btn:active{
+    transform:scale(0.97);
+  }
+
+  .waiver-btn .icon{font-size:28px;}
+  .waiver-btn small{
+    font-weight:600;
+    font-size:12px;
+    opacity:0.85;
+  }
+
+  .note{
+    font-size:14px;
+    color:var(--text-dim);
+    margin-top:12px;
+    text-align:center;
+  }
+
+  .sleepover-card{
+    background:linear-gradient(135deg, rgba(255,46,196,0.12), rgba(157,77,255,0.12));
+    border:1px solid rgba(255,46,196,0.35);
+  }
+
+  .sleepover-card h3{
+    color:var(--neon-pink);
+    text-shadow:0 0 8px rgba(255,46,196,0.5);
+    margin-top:0;
+  }
+
+  .rsvp-card{
+    background:var(--card-bg);
+    border:1px solid rgba(125,255,79,0.35);
+  }
+
+  .rsvp-list{
+    margin:14px 0 0;
+    padding-left:0;
+    list-style:none;
+  }
+
+  .rsvp-list li{
+    display:flex;
+    gap:10px;
+    font-size:15px;
+    color:var(--text-main);
+    margin-bottom:10px;
+    line-height:1.4;
+  }
+
+  .rsvp-list li .check{
+    color:var(--neon-green);
+    font-weight:900;
+    flex-shrink:0;
+  }
+
+  .urgent{
+    display:inline-block;
+    margin-top:14px;
+    font-family:'Press Start 2P', monospace;
+    font-size:11px;
+    color:var(--neon-yellow);
+    background:rgba(255,225,79,0.1);
+    border:1px solid rgba(255,225,79,0.4);
+    border-radius:10px;
+    padding:10px 14px;
+    text-align:center;
+    width:100%;
+  }
+
+  footer{
+    text-align:center;
+    padding:30px 10px 10px;
+    color:var(--text-dim);
+    font-size:14px;
+  }
+
+  footer .big{
+    font-family:'Press Start 2P', monospace;
+    font-size:16px;
+    color:var(--neon-pink);
+    text-shadow:0 0 10px rgba(255,46,196,0.6);
+    display:block;
+    margin-bottom:10px;
+  }
+
+  a{color:var(--neon-cyan);}
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="badge">🎮 PLAYER 2 HAS ENTERED THE GAME 🎮</div>
+    <h1 class="title">LEVEL UP!<br>OWEN TURNS 10</h1>
+    <div class="subtitle">Birthday Party Details</div>
+    <div class="date-pill"><span class="emoji">📅</span> Saturday, September 26, 2026</div>
+  </header>
+
+  <section>
+    <div class="section-title">▸ THE QUEST MAP</div>
+
+    <div class="card level-card">
+      <div class="level-tag">START</div>
+      <div class="level-body">
+        <h3>Arrive</h3>
+        <p>Drop off at our house by <strong>1:30 PM</strong>, or meet us directly at Sandbox VR by <strong>2:40 PM</strong> (at least 15 min before start time!).</p>
+      </div>
+    </div>
+
+    <div class="card level-card">
+      <div class="level-tag">LEVEL 1</div>
+      <div class="level-body">
+        <h3>Sandbox VR <span class="time-chip">2:55 PM</span></h3>
+        <p>Full-body immersive VR — squad up!</p>
+      </div>
+    </div>
+
+    <div class="card level-card">
+      <div class="level-tag">LEVEL 2</div>
+      <div class="level-body">
+        <h3>Activate — The Domain <span class="time-chip">4:00 – 5:30 PM</span></h3>
+        <p>Live-action game rooms, round two.</p>
+      </div>
+    </div>
+
+    <div class="card level-card">
+      <div class="level-tag">FINAL BOSS</div>
+      <div class="level-body">
+        <h3>Back to Steiner's</h3>
+        <p>Pizza 🍕, cookie cake 🍪, and play time at The Bull.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">▸ SIGN YOUR WAIVERS</div>
+    <div class="card">
+      <p style="margin:0 0 14px;color:var(--text-dim);font-size:15px;">Please complete <strong>both</strong> waivers before party day — it only takes a minute for each.</p>
+      <div class="waiver-grid">
+        <a class="waiver-btn" href="https://sandboxvr.com/event/e1208017-11a5-4e32-a71b-62da20f9f67c?utm_source=post_experience&utm_medium=email&utm_campaign=dge" target="_blank" rel="noopener">
+          <span class="icon">🕶️</span>
+          Sandbox VR
+          <small>Sign waiver →</small>
+        </a>
+        <a class="waiver-btn alt" href="https://share.google/ctixQfggNwB0Si535" target="_blank" rel="noopener">
+          <span class="icon">🎯</span>
+          Activate — The Domain
+          <small>Sign waiver →</small>
+        </a>
+      </div>
+      <div class="note">Both links open the official waiver page for that venue.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">▸ BONUS ROUND: SLEEPOVER</div>
+    <div class="card sleepover-card">
+      <h3>Everyone's invited to stay over! 🛏️</h3>
+      <p style="margin:0;color:var(--text-main);font-size:15px;line-height:1.6;">Owen would love for the crew to stay the night. We've got air mattresses and sleeping bags covered — no need to bring your own (but pack one if you'd like your own gear).</p>
+      <p style="margin-top:10px;color:var(--text-main);font-size:15px;line-height:1.6;">Everyone can also be picked up at The Bull, or from our house later that evening — totally up to you.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">▸ RSVP — SAVE YOUR PROGRESS</div>
+    <div class="card rsvp-card">
+      <p style="margin:0 0 4px;font-size:15px;color:var(--text-dim);">Let us know by replying to the group text / Facebook post:</p>
+      <ul class="rsvp-list">
+        <li><span class="check">✓</span> Dropping off at our house at 1:30, or meeting us at Sandbox?</li>
+        <li><span class="check">✓</span> Staying the night, or getting picked up that evening?</li>
+        <li><span class="check">✓</span> Anything changed, or can't make it anymore?</li>
+      </ul>
+      <div class="urgent">⚡ PLEASE REPLY THIS WEEK ⚡</div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="big">GAME ON 🎂</span>
+    Can't wait to celebrate with you — see you Saturday!
+  </footer>
+
+</div>
+
+</body>
+</html>
